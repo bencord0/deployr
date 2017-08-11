@@ -92,6 +92,27 @@ This is the equivalent of
 
   kubectl apply -f - <(m4 -D GITHASH="${GITHASH}" deployr.yml)
 
+Deploy another instance of the application
+------------------------------------------
+
+You can run apps multiple times by specifying the `--appname`, or `-a` option.
+
+  $ deployr -a scrumblr_one https://github.com/bencord0/scrumblr
+  $ deployr -a scrumblr_two https://github.com/bencord0/scrumblr
+
+
+Subcommands
+===========
+
+Deploying using local code repositories
+---------------------------------------
+
+If `deployr` does not detect that the first argument is a git repository,
+you can force using the deploy code by calling the `deploy` subcommand directly.
+
+  $ deployr deploy ./path/to/repository [git hash]
+
+
 Query for the deployment status
 -------------------------------
 
