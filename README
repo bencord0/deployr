@@ -12,7 +12,82 @@ Installation
 If you run this outside of a virtualenv, and as non-root, this will add the `deployr`
 program to `~/.local/bin/deployr`. You may need to add this to your PATH.
 
+Requirements
+------------
+
+Docker. `deployr` heavily relies on the docker ecosystem to build, push and run
+webapps in containers.
+
+Currently, `deployr` assumes that you have a local kubernetes instance running.
+You can set one up using the `curl|bash` script at get.k8s.io.
+
+You will also need a docker image repository to push images to. `deployr`
+currently hardcodes a registry running on localhost. You can run it too using
+the library registry_.
+
+.. _registry: https://hub.docker.com/r/_/registry/
+
+
 Usage
 -----
 
   $ deployr
+<help text goes here>
+
+Deploying with deployr
+----------------------
+
+Using `deployr` is easy!
+
+Just point `deployr` at a git repository.
+For example, we're going to deploy an instance of the Scrumblr_ kanban board.
+
+.. _Scrumblr: http://scrumblr.ca/
+
+
+  $ deployr https://github.com/bencord0/scrumblr
+
+
+This will deploy scrumblr to a locally running kubernetes instance.
+
+Note, deployr expects to find a `Dockerfile` which will be used to create
+a container image. `deployr` also expects to find a `deployr.yml` file,
+a kubernetes pod description, with some templated parameters.
+
+This will run the equivalent of
+
+  GITURL=https://github.com/bencord0/scrumblr
+  NAME="$(basename ${GITURL})"
+  git clone "${GITURL}" "${TEMPDIR}/{NAME}"
+  cd "${TEMPDIR}/${NAME}"
+
+  docker build -t "localhost:5000/$NAME" .
+  docker push "localhost:5000/$NAME"
+
+  kubectl apply -f <(m4 -D NAME=$NAME -D GITHASH=latest deployr.yml)
+
+Note: there's nothing too special about m4, we're just using is for
+templating some variables.
+
+Deploy a specific commit
+------------------------
+
+  $ deployr https://github.com/bencord0/scrumblr ed4332d4480a24136bf18eaaab2c4ab2a0366a45
+
+As above, this will clone, build and deploy an instance of scrumblr, but at a
+specific snapshot of the code.
+
+This is the equivalent of
+
+  GITURL=https://github.com/bencord0/scrumblr
+  GITHASH=ed4332d4480a24136bf18eaaab2c4ab2a0366a45
+  NAME="$(basename ${GITURL})"
+  git clone "${GITURL}" "${TEMPDIR}/{NAME}"
+  cd "${TEMPDIR}/${NAME}"
+
+  git reset --hard "${GITHASH}"
+
+  docker build -t "localhost:5000/${NAME}:${GITHASH}" .
+  docker push "localhost:5000/${NAME}:${GITHASH}"
+
+  kubectl apply -f <(m4 -D GITHASH="${GITHASH}" deployr.yml)
