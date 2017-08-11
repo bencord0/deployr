@@ -32,7 +32,25 @@ Usage
 =====
 
   $ deployr
-<help text goes here>
+  usage: deployr [-h] {deploy,info,delete} ...
+
+  optional arguments:
+    -h, --help            show this help message and exit
+
+  subcommands:
+    {deploy,info,delete}
+
+  $ deployr deploy --help
+  usage: deployr deploy [-h] [-a APPNAME] repository [git_hash]
+
+  positional arguments:
+    repository            e.g. https://github.com/bencord0/scrumblr
+    git_hash
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    -a APPNAME, --appname APPNAME
+
 
 Deploying with deployr
 ----------------------
