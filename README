@@ -1,10 +1,10 @@
 Deployr
--------
+=======
 
 A system to automatically provision and run web apps
 
 Installation
-------------
+============
 
   $ cd deployr
   $ pip install --user .
@@ -29,7 +29,7 @@ the library registry_.
 
 
 Usage
------
+=====
 
   $ deployr
 <help text goes here>
@@ -64,7 +64,7 @@ This will run the equivalent of
   docker build -t "localhost:5000/$NAME" .
   docker push "localhost:5000/$NAME"
 
-  kubectl apply -f <(m4 -D NAME=$NAME -D GITHASH=latest deployr.yml)
+  kubectl apply -f - <(m4 -D GITHASH=latest deployr.yml)
 
 Note: there's nothing too special about m4, we're just using is for
 templating some variables.
@@ -90,4 +90,4 @@ This is the equivalent of
   docker build -t "localhost:5000/${NAME}:${GITHASH}" .
   docker push "localhost:5000/${NAME}:${GITHASH}"
 
-  kubectl apply -f <(m4 -D GITHASH="${GITHASH}" deployr.yml)
+  kubectl apply -f - <(m4 -D GITHASH="${GITHASH}" deployr.yml)
