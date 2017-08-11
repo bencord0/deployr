@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 
 from .args import parser
 from .deploy import deploy_cmd
+from .info import info_cmd
 
 
 def main():
@@ -19,6 +20,7 @@ def main():
     if args.subcommand:
         subcmd = {
             'deploy': deploy_cmd,
+            'info': info_cmd,
         }[args.subcommand]
 
         subcmd(args)

@@ -91,3 +91,12 @@ This is the equivalent of
   docker push "localhost:5000/${NAME}:${GITHASH}"
 
   kubectl apply -f - <(m4 -D GITHASH="${GITHASH}" deployr.yml)
+
+Query for the deployment status
+-------------------------------
+
+  $ deployr info scrumblr
+
+  scrumblr pod is available at 10.0.33.3
+
+You can test the deployment by going to the address in your browser.
