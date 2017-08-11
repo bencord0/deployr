@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import logging
 import sys
 
 from urllib.parse import urlparse
@@ -10,6 +11,11 @@ from .info import info_cmd
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(message)s",
+    )
+
     # If the first positional argument is a url,
     # use the default 'deploy' subcommand.
     if len(sys.argv) > 1 and urlparse(sys.argv[1]).scheme:
