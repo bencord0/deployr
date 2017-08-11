@@ -100,6 +100,12 @@ You can run apps multiple times by specifying the `--appname`, or `-a` option.
   $ deployr -a scrumblr_one https://github.com/bencord0/scrumblr
   $ deployr -a scrumblr_two https://github.com/bencord0/scrumblr
 
+Deploy a specific versions of the application
+--------------------------------------------
+
+  $ deployr -a yesterdays_app $repo $old_git_hash
+  $ deployr -a todays_app $repo $new_git_hash
+
 
 Subcommands
 ===========
