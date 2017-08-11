@@ -1,0 +1,18 @@
+Deployr
+-------
+
+A system to automatically provision and run web apps
+
+Installation
+------------
+
+  $ cd deployr
+  $ pip install --user .
+
+If you run this outside of a virtualenv, and as non-root, this will add the `deployr`
+program to `~/.local/bin/deployr`. You may need to add this to your PATH.
+
+Usage
+-----
+
+  $ deployr
