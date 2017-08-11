@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 from .args import parser
 from .deploy import deploy_cmd
 from .info import info_cmd
+from .delete import delete_cmd
 
 
 def main():
@@ -27,6 +28,7 @@ def main():
         subcmd = {
             'deploy': deploy_cmd,
             'info': info_cmd,
+            'delete': delete_cmd,
         }[args.subcommand]
 
         subcmd(args)

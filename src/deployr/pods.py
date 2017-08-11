@@ -6,6 +6,8 @@ import requests
 
 logger = logging.getLogger(__name__)
 
+# TODO: get this from a config file, or read kubeconfig
+KUBERNETES_API_URL = 'http://localhost:8080'
 
 def pod_report(appname):
     status = wait_for_pod(appname)
@@ -19,10 +21,8 @@ def pod_report(appname):
 
 
 def pod_status(appname):
-    # TODO: get this from a config file, or read kubeconfig
-    kubernetes_api_url = 'http://localhost:8080'
     pod_api_path = f'/api/v1/namespaces/default/pods/{appname}'
-    pod_info = requests.get(f'{kubernetes_api_url}{pod_api_path}').json()
+    pod_info = requests.get(f'{KUBERNETES_API_URL}{pod_api_path}').json()
 
     return pod_info["status"]
 
@@ -36,3 +36,8 @@ def wait_for_pod(appname):
             break
 
     return status
+
+def pod_delete(appname):
+    pod_api_path = f'/api/v1/namespaces/default/pods/{appname}'
+    pod_info = requests.delete(f'{KUBERNETES_API_URL}{pod_api_path}').json()
+    return pod_info

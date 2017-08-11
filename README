@@ -127,3 +127,10 @@ Query for the deployment status
   scrumblr pod is available at 10.0.33.3
 
 You can test the deployment by going to the address in your browser.
+
+Delete an app
+-------------
+
+  $ deployr delete scrumblr
+
+Use this command to clear up the resources once you are done with them.

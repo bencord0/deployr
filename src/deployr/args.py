@@ -12,3 +12,6 @@ deploy_parser.add_argument("-a", "--appname")
 
 info_parser = subparsers.add_parser("info")
 info_parser.add_argument("appname")
+
+delete_parser = subparsers.add_parser("delete")
+delete_parser.add_argument("appname", help="Pod name to delete")
